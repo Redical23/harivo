@@ -149,6 +149,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   background: #0a0a0a; border: 1px solid var(--border);
   transition: transform .25s var(--ease), border-color .25s, box-shadow .25s;
   min-width: 180px;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 .store-btn:hover { transform: translateY(-3px); border-color: rgba(0,188,212,.35); box-shadow: var(--shadow-glow); }
 .store-btn svg { width: 28px; height: 28px; flex-shrink: 0; }
@@ -412,7 +414,7 @@ h2 { font-size: clamp(32px, 4.5vw, 52px); margin-bottom: 16px; }
 
 /* ---------- Download CTA ---------- */
 .download-wrap {
-  position: relative; padding: 80px;
+  position: relative; padding: 70px 60px;
   border-radius: 28px;
   background:
     radial-gradient(600px 300px at 20% 20%, rgba(0,188,212,.25), transparent 60%),
@@ -420,14 +422,33 @@ h2 { font-size: clamp(32px, 4.5vw, 52px); margin-bottom: 16px; }
     linear-gradient(135deg, #0a0a0a, #111111);
   border: 1px solid var(--border); overflow: hidden;
 }
-.download-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; }
-.download-grid h2 { font-size: clamp(30px, 4vw, 48px); margin-bottom: 16px; }
-.download-grid p { color: var(--muted); font-size: 17px; margin-bottom: 28px; max-width: 480px; }
-.download-phone { display: grid; place-items: center; position: relative; min-height: 320px; }
-.download-phone img {
-  max-width: 360px; border-radius: 22px;
-  box-shadow: 0 30px 80px -20px rgba(0,188,212,.45);
-  animation: phoneFloat 6s ease-in-out infinite;
+.download-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 40px; align-items: center; }
+.download-grid h2 { font-size: clamp(28px, 3.8vw, 44px); margin-bottom: 16px; }
+.download-grid p { color: var(--muted); font-size: 16px; margin-bottom: 26px; max-width: 480px; }
+.download-car-wrap { display: flex; justify-content: center; align-items: center; width: 100%; }
+.download-car-card {
+  width: 100%; max-width: 500px;
+  border-radius: 20px; overflow: hidden;
+  border: 1px solid rgba(0, 188, 212, 0.35);
+  box-shadow: 0 25px 70px -15px rgba(0, 188, 212, 0.45);
+  background: var(--glass); position: relative;
+  transition: transform .35s var(--ease), box-shadow .35s;
+}
+.download-car-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 30px 85px -10px rgba(0, 188, 212, 0.6);
+}
+.download-car-card img {
+  width: 100%; height: auto; display: block;
+  object-fit: cover;
+}
+.download-car-badge {
+  position: absolute; bottom: 14px; left: 14px;
+  padding: 6px 14px; font-size: 12px; font-weight: 700;
+  letter-spacing: 0.5px; color: #fff; border-radius: 999px;
+  background: rgba(5, 8, 22, 0.78);
+  border: 1px solid rgba(0, 188, 212, 0.45);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
 }
 
 /* ---------- Contact ---------- */
@@ -507,8 +528,8 @@ footer { padding: 80px 0 30px; border-top: 1px solid var(--border); background: 
 .about-hero h1 { font-size: clamp(40px, 6vw, 76px); margin-bottom: 18px; }
 .about-hero p { color: var(--muted); font-size: 19px; max-width: 680px; margin: 0 auto; }
 .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-.story-img { border-radius: 22px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 30px 80px -30px rgba(0,188,212,.4); }
-.story-img img { aspect-ratio: 4/3; object-fit: cover; transition: transform .6s var(--ease); }
+.story-img { border-radius: 22px; overflow: hidden; border: 1px solid rgba(0, 188, 212, 0.3); box-shadow: 0 30px 80px -30px rgba(0,188,212,.4); }
+.story-img img { width: 100%; height: auto; display: block; object-fit: cover; transition: transform .6s var(--ease); }
 .story-img:hover img { transform: scale(1.06); }
 .story-text h2 { margin-bottom: 18px; }
 .story-text p { color: var(--muted); margin-bottom: 14px; }
@@ -680,13 +701,26 @@ html, body {
   overflow: hidden;
 }
 
-/* Mobile: Center hero content */
+/* Mobile: Fix overflow, center hero content, fix cut elements */
 @media (max-width: 768px) {
-  .hero-content {
+  /* Fix all containers */
+  .container {
+    width: 100%;
+    padding: 0 18px;
+    overflow-x: hidden;
+    box-sizing: border-box;
+  }
+
+  section {
+    overflow-x: hidden;
+  }
+
+  /* Center hero content */
+  .hero-grid > div:first-child {
     text-align: center;
-    align-items: center;
     display: flex;
     flex-direction: column;
+    align-items: center;
   }
 
   .hero h1 {
@@ -707,31 +741,114 @@ html, body {
     flex-wrap: wrap;
   }
 
-  .store-row {
-    justify-content: center;
-  }
-
   .hero-meta {
     justify-content: center;
     text-align: center;
+    flex-wrap: wrap;
   }
 
-  /* Fix phone mockup overflow */
-  .phone-wrap {
-    overflow: hidden;
+  /* Store buttons: full width on mobile, no overflow */
+  .store-row {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
   }
 
-  .phone {
+  .store-btn {
+    min-width: unset;
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Fix download section on mobile */
+  .download-wrap {
+    padding: 36px 18px;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 20px;
+  }
+
+  .download-grid {
+    gap: 28px;
+  }
+
+  .download-grid > div:first-child {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .download-grid h2 {
+    text-align: center;
+    font-size: clamp(24px, 6vw, 32px);
+  }
+
+  .download-grid p {
+    text-align: center;
+    font-size: 15px;
     max-width: 100%;
   }
 
-  /* Prevent any child from causing overflow */
-  section {
+  .download-grid .store-row {
+    margin: 0 auto 10px;
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .download-car-wrap {
+    width: 100%;
+  }
+
+  .download-car-card {
+    max-width: 100%;
+    border-radius: 16px;
+  }
+
+  /* Fix phone mockup overflow */
+  .phone-wrap, .phone {
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  /* Fix hero visual image */
+  .hero-image-card {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  /* Fix showcase image */
+  .showcase-grid .hero-image-card {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  /* Fix story image on about page */
+  .story-grid {
+    gap: 30px;
+  }
+
+  .story-img {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Fix contact grid overflow */
+  .contact-info, .form {
+    width: 100%;
     overflow-x: hidden;
   }
 
-  .container {
-    overflow-x: hidden;
+  /* Prevent badges from overflowing */
+  .hero-badge {
+    display: none;
+  }
+
+  /* Fix float chips */
+  .float-chip {
+    display: none;
   }
 }
 
