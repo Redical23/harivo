@@ -664,3 +664,74 @@ footer { padding: 80px 0 30px; border-top: 1px solid var(--border); background: 
   .hero-tagline { gap: 8px; }
   .tagline-badge { font-size: 13px; padding: 5px 14px; }
 }
+
+/* =========================================================
+   MOBILE FIXES — Overflow, centering, zoom
+   ========================================================= */
+
+/* Fix horizontal overflow that breaks zoom on mobile */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.bg-fx, .orb {
+  max-width: 100vw;
+  overflow: hidden;
+}
+
+/* Mobile: Center hero content */
+@media (max-width: 768px) {
+  .hero-content {
+    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero h1 {
+    text-align: center;
+  }
+
+  .hero p.lead {
+    text-align: center;
+    max-width: 100%;
+  }
+
+  .hero-tagline {
+    justify-content: center;
+  }
+
+  .hero-actions {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .store-row {
+    justify-content: center;
+  }
+
+  .hero-meta {
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* Fix phone mockup overflow */
+  .phone-wrap {
+    overflow: hidden;
+  }
+
+  .phone {
+    max-width: 100%;
+  }
+
+  /* Prevent any child from causing overflow */
+  section {
+    overflow-x: hidden;
+  }
+
+  .container {
+    overflow-x: hidden;
+  }
+}
+
