@@ -91,8 +91,8 @@
         r: Math.random() * 1.6 + 0.4,
         vx: (Math.random() - 0.5) * 0.25,
         vy: (Math.random() - 0.5) * 0.25,
-        c: Math.random() > 0.5 ? '74,53,160' : '212,168,67',
-        a: Math.random() * 0.3 + 0.1,
+        c: Math.random() > 0.5 ? '0,229,255' : '139,92,246',
+        a: Math.random() * 0.5 + 0.2,
       }));
     }
     function draw() {
@@ -142,109 +142,6 @@
     });
     el.addEventListener('mouseleave', () => {
       el.style.transform = 'perspective(900px) rotateY(0) rotateX(0)';
-    });
-  });
-
-  // ---------- Advanced 3D Card Tilt System ----------
-  // Feature cards — deep 3D tilt + shine sweep
-  document.querySelectorAll('.feature-card').forEach((card) => {
-    // Inject shine element
-    const shine = document.createElement('div');
-    shine.classList.add('card-shine');
-    card.appendChild(shine);
-
-    // Inject floating particles
-    for (let i = 0; i < 3; i++) {
-      const p = document.createElement('div');
-      p.classList.add('card-particle');
-      card.appendChild(p);
-    }
-
-    card.addEventListener('mousemove', (e) => {
-      const r = card.getBoundingClientRect();
-      const cx = e.clientX - r.left;
-      const cy = e.clientY - r.top;
-      const px = (cx / r.width - 0.5);
-      const py = (cy / r.height - 0.5);
-
-      card.style.transform = `translateY(-10px) scale(1.02) perspective(800px) rotateY(${px * 12}deg) rotateX(${-py * 12}deg)`;
-    });
-
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = '';
-    });
-  });
-
-  // Screenshot cards — perspective parallax tilt
-  document.querySelectorAll('.shot-card').forEach((card) => {
-    card.addEventListener('mousemove', (e) => {
-      const r = card.getBoundingClientRect();
-      const px = (e.clientX - r.left) / r.width - 0.5;
-      const py = (e.clientY - r.top) / r.height - 0.5;
-
-      card.style.transform = `translateY(-14px) perspective(1000px) rotateY(${px * 14}deg) rotateX(${-py * 10}deg)`;
-      const img = card.querySelector('img');
-      if (img) {
-        img.style.transform = `scale(1.04) translateX(${px * -8}px) translateY(${py * -8}px)`;
-      }
-    });
-
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = '';
-      const img = card.querySelector('img');
-      if (img) img.style.transform = '';
-    });
-  });
-
-  // Stat cards — magnetic number bounce
-  document.querySelectorAll('.stat-card').forEach((card) => {
-    // Inject particles
-    for (let i = 0; i < 3; i++) {
-      const p = document.createElement('div');
-      p.classList.add('card-particle');
-      card.appendChild(p);
-    }
-
-    card.addEventListener('mousemove', (e) => {
-      const r = card.getBoundingClientRect();
-      const px = (e.clientX - r.left) / r.width - 0.5;
-      const py = (e.clientY - r.top) / r.height - 0.5;
-
-      card.style.transform = `translateY(-10px) scale(1.03) perspective(600px) rotateY(${px * 8}deg) rotateX(${-py * 8}deg)`;
-    });
-
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = '';
-    });
-  });
-
-  // Showcase items — subtle depth on hover
-  document.querySelectorAll('.showcase-item').forEach((item) => {
-    item.addEventListener('mousemove', (e) => {
-      const r = item.getBoundingClientRect();
-      const px = (e.clientX - r.left) / r.width - 0.5;
-      const py = (e.clientY - r.top) / r.height - 0.5;
-
-      item.style.transform = `translateX(8px) scale(1.01) perspective(600px) rotateY(${px * 4}deg) rotateX(${-py * 4}deg)`;
-    });
-
-    item.addEventListener('mouseleave', () => {
-      item.style.transform = '';
-    });
-  });
-
-  // Testimonial cards — gentle float
-  document.querySelectorAll('.t-card').forEach((card) => {
-    card.addEventListener('mousemove', (e) => {
-      const r = card.getBoundingClientRect();
-      const px = (e.clientX - r.left) / r.width - 0.5;
-      const py = (e.clientY - r.top) / r.height - 0.5;
-
-      card.style.transform = `perspective(800px) rotateY(${px * 5}deg) rotateX(${-py * 5}deg)`;
-    });
-
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = '';
     });
   });
 
@@ -330,7 +227,7 @@
   function setStatus(el, msg, ok) {
     if (!el) return;
     el.textContent = msg;
-    el.style.color = ok ? '#4A35A0' : '#ff7a7a';
+    el.style.color = ok ? '#00E5FF' : '#ff7a7a';
   }
 
   // ---------- Smooth in-page links ----------
